@@ -1,0 +1,1090 @@
+
+// Need to credit icon authors
+//<div>Dino icons made by <a href="https://www.flaticon.com/authors/darius-dan" title="Darius Dan">Darius Dan</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+// <div>Flag icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+// Import Fonts
+@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i&display=swap');
+
+// Import Bootstrap Styles
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap-vue/src/index.scss';
+
+
+
+// ------------------------------------------------
+//  Variables
+// ------------------------------------------------
+
+$header-height: 57px;
+
+$purple: #3f3f77; //#3b3b70
+$white: #fff;
+$black: #000;
+$grayblue: #f2f2f4; //#f6f7f9;
+$lightgray: #6c757d;
+$dark: #333;
+$blue: #0679f2;
+$red: #d04141;
+$beige: #f6f4e5;
+
+$background: $grayblue;
+$foreground: $dark;
+
+$person1bg: $grayblue;
+$person1color: $dark;
+$person2bg: $blue;
+$person2color: $white;
+
+
+
+// ------------------------------------------------
+//  App Basics
+// ------------------------------------------------
+
+body { 
+	font-family: 'Lato', sans-serif;
+	background-color: $background;
+	color: $foreground;
+}
+
+h4 {
+	font-size: 20px;
+}
+
+
+
+
+// ------------------------------------------------
+//  General Buttons
+// ------------------------------------------------
+
+.btn-primary { 
+  color: $dark;
+	background-color: $grayblue;
+  border: 1px solid darken($grayblue, 22%);
+
+  &:focus,
+  &:hover {
+  	color: $dark;
+  	background-color: darken($grayblue, 4%);
+  	border-color: darken($grayblue, 26%);
+  }
+}
+
+.btn-secondary { 
+	color: $white;
+	background-color: lighten($blue, 2%);
+  border: 1px solid darken($blue, 2%);
+
+  &:focus,
+  &:hover {
+  	color: $white;
+  	background-color: darken($blue, 4%);
+  	border-color: darken($blue, 10%);
+  }
+}
+
+
+
+
+// ------------------------------------------------
+//  App Structure
+// ------------------------------------------------
+
+.app-body {
+	padding-top: $header-height;
+}
+
+.container {
+	padding-right: 25px; 
+  padding-left: 25px;
+
+  @media (min-width: 576px) {
+    max-width: 960px; 
+  }
+  @media (min-width: 768px) {
+    // max-width: 720px; 
+  }
+  @media (min-width: 992px) {
+    // max-width: 960px; 
+  }
+  @media (min-width: 1200px) {
+    max-width: 1140px; 
+  }
+}
+
+
+
+
+
+// ------------------------------------------------
+//  App Header 
+// ------------------------------------------------
+.app-header {
+	z-index: 1;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw; // instead of right:0 to prevent header resize with modal
+	padding: 7px 0;
+	height: $header-height;
+	color: $white;
+	background-color: $purple;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.7);
+
+	h1 {
+    margin: 11px 0 0;
+    font-size: 16px;
+    font-weight: bold;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: inherit;
+
+		a {
+			color: inherit;
+		}
+	}
+}
+
+.app-header_right {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.app-logo {
+	width: 50px;
+	height: 50px;
+	background-image: url('~@/assets/images/diplodocus.svg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+
+	.app-header & { // app logo in header
+		display: inline-block;
+    margin-top: -4px;
+	}
+}
+
+.app-header_btn { 
+	background-color: rgba($white, 0.25); // #7c819b;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.025em;
+  padding: 0.35em 1em;
+  margin-left: 10px;
+  -webkit-font-smoothing: antialiased;
+  display: none;
+
+	&.is-visible {
+		display: block;
+	}
+
+	&:hover,
+	&:focus {
+		background-color: rgba($white, 0.4);
+	}
+}
+
+
+
+
+
+// ------------------------------------------------
+//  List Card Component
+//  used for chat selection
+//  chat session, and users list
+// ------------------------------------------------
+
+.list-filter-title {
+	font-size: 17px;
+	font-weight: bold;
+}
+
+.clickable-card { // used for chat log headers
+	margin-top: 0;
+	margin-bottom: 0;
+	height: 100%;
+	cursor: pointer;
+	background-color: $grayblue;
+	transition: all 150ms ease;
+
+	&:hover,
+	&:focus {
+		background-color: darken($grayblue, 5%);
+	}
+
+	&.is-active {
+		background-color: #dfdfeb;
+	}
+}
+
+.list-card { 
+	margin-top: 16px;
+	margin-bottom: 16px;
+
+	&.is-hidden { // used for chat session logs 
+		display: none;
+	}
+
+	.card-status { // used for user list
+		position: absolute;
+		top: 15px;
+		right: 20px;
+		font-size: 15px;
+		font-weight: bold;
+
+		&.red {
+			color: $red;
+		}
+	}
+
+	.card-title {
+		margin-bottom: 12px;
+		font-size: 18px;
+
+		small {
+			margin-left: 2px;
+			font-style: italic;
+			color: inherit;
+		}
+	}
+
+	.card-text {
+		color: $lightgray;
+
+		p {
+			margin-bottom: 0;
+		}
+	}
+}
+
+
+.users-list {
+	
+	.card.is-valid { // highlight valid user logins
+		background-color: $beige;
+	}
+
+	.list-card:not(.is-expired) {
+	}
+
+	.list-card.is-expired {
+		
+	}
+}
+
+
+
+
+
+
+
+// ------------------------------------------------
+//  Form Card Component
+//  used in chat entry and app login
+// ------------------------------------------------
+
+.form-card {
+	color: $dark;
+
+	.card-close {
+		position: absolute;
+		right: 12px;
+		top: 12px;
+		padding: 0;
+		border: none;
+		background-color: transparent;
+		font-size: 21px;
+		color: $lightgray;
+		transition: color 150ms ease;
+
+		&:hover,
+		&:focus {
+			color: lighten($lightgray, 15%);
+		}
+		
+		&:active,
+		&:focus {
+			color: $white;
+			background-color: #545b62;
+    	-webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    	box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+		}
+
+		.b-icon {
+			display: block;
+		}
+	}
+
+	.card-body {
+		text-align: center;
+	}
+
+	.card-title {
+		font-size: 25px;
+		margin-bottom: 12px;
+	}
+
+	.card-text {
+		color: $lightgray;
+		margin-bottom: 30px;
+	}
+
+	img {
+		margin: 0 auto;
+		display: block;
+	}
+
+	.alert {
+		width: 100%;
+    padding-right: 43px;
+	}
+
+	.form-inline {
+		margin: 0 auto;
+		max-width: 300px;
+	}
+
+	.form-inline.has-small-labels {
+		.form-group label {
+			min-width: 50px;
+		}	
+	}
+
+	.form-group {
+		margin-bottom: 20px;
+		flex: 0 0 100%;
+		justify-content: stretch;
+		display: flex;
+
+		label {
+			margin-right: 7px;
+			font-weight: bold;
+			color: $purple;
+			min-width: 80px;
+			text-align: right;
+		}
+
+		> div { // input container
+			flex: 1 0 auto;
+			> input {
+				width: 100%;
+			}
+		}
+
+		button {
+			margin: 5px auto;
+			min-width: 100px;
+		}
+	}
+}
+
+
+
+
+
+
+
+// ------------------------------------------------
+//  Chat Components
+// 	used in chat session and chat logs  
+// ------------------------------------------------
+
+.bubble {  
+	display: inline-block;
+  position: relative;
+  width: auto;
+	padding: 12px 20px;
+	text-align: left;
+  font-size: 15px;
+	border-radius: 15px 15px 15px 5px;
+	background-color: $blue; // default bubble colors
+	color: $white;
+
+  &:after { // little arrow
+    content: " ";
+    display: block;
+    position: absolute;
+    pointer-events: none;
+    bottom: calc(0% - 10px);
+	  width: 0; 
+	  height: 0; 
+	  border: 10px solid transparent;
+  	left: 0;	
+    border-left-color: $blue;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+
+  .person-1 & { // left-side bubble, override default bubble colors
+		border-radius: 15px 15px 15px 5px;
+  	background-color: $person1bg;
+  	color: $person1color;
+
+	  &:after { // little arrow
+	  	left: 0;	
+	    border-left-color: $person1bg;
+	    -webkit-transform: rotate(45deg);
+	            transform: rotate(45deg);
+	  }
+  }
+
+  .person-2 & { // right-side bubble
+  	border-radius: 15px 15px 5px 15px;
+    background-color: $person2bg;
+    color: $person2color;
+
+	  &:after { 
+	    right: 0;
+	    left: auto;
+	    border-left-color: $person2bg;
+	    -webkit-transform: rotate(135deg);
+	            transform: rotate(135deg);
+		}
+	}
+}
+
+
+.flag {
+	display: block;
+	padding-top: 10px;
+	width: 22px;
+	height: 22px;
+	-webkit-appearance:none;
+	border: none;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+
+	&.red {
+		background-image: url('~@/assets/images/flag-red.svg');
+	}
+	&.orange {
+		background-image: url('~@/assets/images/flag-orange.svg');
+	}
+	&.green {
+		background-image: url('~@/assets/images/flag-green.svg');
+	}
+}
+
+
+
+
+
+// ------------------------------------------------
+//  Chat Session
+// ------------------------------------------------
+
+.messages {
+	position: relative;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.message {
+	min-height: 100px; // fix height so height doesnt change when position goes to fixed
+	overflow: visible; // allow labels to show
+	display: -webkit-box;
+	display: flex;
+	-webkit-box-pack: end;
+	        justify-content: flex-end; // ensures message stays to right when response becomes fixed
+	-webkit-box-align: stretch;
+				align-items: stretch;
+	pointer-events: none;
+
+	&.is-visible {
+		pointer-events: all;
+	}
+
+	&:first-child { // contains message window heading
+		min-height: 0;
+	}
+}
+
+.message_response {
+	opacity: 0; // hide until message is selected
+	pointer-events: none;
+	position: relative;
+  margin-top: -14px;  // align with top of message bubble
+	padding: 0;
+	height: 100%;
+	transition: none;
+
+	.form-group {
+		margin: 0;
+	}
+
+	label {
+		margin-bottom: 1px;
+		font-size: 13px;
+		font-weight: normal;
+		color: $foreground;
+
+		strong {
+			font-weight: bold;
+			display: none;
+		}
+	}
+
+	button {
+		display: none;
+	}
+
+	.message:first-child:not(.is-selected) & {
+		padding-top: 20px;
+	}
+	
+	.messages:not(.is-selected) .message.has-response &, // when no message is selected, show response box for all messages with flags/comments
+	.messages.is-selected .message.is-selected & // when a message is selected, show the response box for just this message
+	{ 
+		opacity: 1;
+		pointer-events: all;
+	}
+
+	.message.is-selected & { // when message is selected
+		z-index: 1;
+		position: fixed; // fix response box to left side of window
+    top: calc( #{$header-height} + 15px);
+    left:30px;
+    width: 40%;
+    transition: all 0ms linear 100ms, opacity 150ms ease 100ms;
+
+		label {
+			margin-top: 15px;
+			margin-bottom: 8px;
+			font-size: 16px;	
+			font-weight: bold;
+			color: $foreground;
+
+			strong {
+				display: inline;
+			}
+
+			span {
+				display: none;
+			}
+		}
+
+		textarea { // increase size of response box
+			height:  calc(100vh - #{$header-height} - 300px - 35px);
+			min-height: 200px;
+			font-size: 21px; 
+		}
+
+		button {
+			display: block;
+		}
+	}
+} 
+
+.message_window {
+	background-color: $white;
+	border-right: 1px solid rgba(0, 0, 0, 0.1);
+	border-left: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 12px 3vw 5px 3.5vw;
+	height: 100%;
+	position: relative;
+
+	.message.is-selected & {
+		z-index: 1;
+		box-shadow: inset 0 0 1px 0 $person2bg, -2px 0 0 0 $person2bg;
+	}
+
+	.message:first-child & {
+		padding-top: calc(20px + 12px);
+	}
+}
+
+.message_window_heading {
+  margin: 3px 0 15px;
+  font-size: 14px;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #aaa;
+}
+
+.message_window_inner {
+	position: relative;
+	display: -webkit-box;
+	display: flex;
+	align-items: stretch;
+}
+
+.message_bubble {  
+	@extend .bubble;
+	cursor: pointer;
+	order: 2;
+	-webkit-transform-origin: bottom;
+	transform-origin: bottom;
+	-webkit-transform: scale(0.7);
+  				transform: scale(0.7);
+  opacity: 0; // hide on load then animate in
+	
+	// .message &, // uncomment to show messages
+	.message.is-visible & { // animate in
+		-webkit-animation: 160ms ease-in forwards showMessage;
+		        animation: 160ms ease-in forwards showMessage;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	> *:last-child { // bubble text
+		margin-bottom: 0;
+	}
+}
+
+@keyframes showMessage { // chat bubble animation
+  0% {
+  	-webkit-transform: scale(0.7);
+    				transform: scale(0.7);
+    opacity: 0;
+  }
+  40% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.message_actions {
+	-webkit-box-flex: 1;
+	flex: 1 0 calc(22px * 3 + 15px);
+	width: calc(22px * 3 + 15px);
+	display: -webkit-box;
+	display: flex;
+	align-items: center;
+
+	.person-1 & {
+		padding-left: 15px;
+		-webkit-box-ordinal-group: 4;
+		        order: 3;
+		-webkit-box-pack: start;
+		        justify-content: flex-start;
+	}
+
+	.person-2 & {
+		padding-right: 15px;
+		-webkit-box-ordinal-group: 2;
+		        order: 1;
+		-webkit-box-pack: end;
+		        justify-content: flex-end;
+	}
+}
+
+.message_flag {
+	@extend .flag;
+	cursor: pointer;
+	opacity: 0; // hide until message is hovered or selected
+
+	&:checked {
+		opacity: 1 !important;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	.message.has-response & { // once message is flagged, show faint outline of other flags 
+		opacity: 0.12;
+	}
+
+	.message:not(.has-flags-disabled) .message_window_inner:hover &,
+	.message:not(.has-flags-disabled) .message_window_inner:focus & { // show faded flags on hover
+		opacity: 0.4;
+	}
+
+	.message.has-flags-disabled & { // once flag buttons are disabled, prevent pointer events
+		pointer-events: none; 
+	}
+
+	.message.has-flags-disabled:not(.has-response) & { // if message is not flagged, hide flag buttons once they are disabled 
+		opacity: 0 !important;
+	}
+}
+
+.message_dots { /*Huge thanks to @tobiasahlin at http://tobiasahlin.com/spinkit/ */
+	display: none; // hide on load
+	pointer-events: none;
+	position: absolute;
+	top: calc(50% - 21px);
+	padding-left: 20px;
+	padding-right: 20px;
+  text-align: center;
+
+  &.is-visible {
+  	display: block;
+  }
+
+  .person-1 & {
+		left: 0;
+  }
+
+  .person-2 & { // right side bubble
+  	right: 0;
+  }
+
+	> div {
+	  width: 8px;
+	  height: 8px;
+	  margin-right: 2px;
+	  background-color: #777;
+	  border-radius: 100%;
+	  display: inline-block;
+	  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+	  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+	}
+
+	.bounce1 {
+	  -webkit-animation-delay: -0.32s;
+	  animation-delay: -0.32s;
+	}
+
+	.bounce2 {
+	  -webkit-animation-delay: -0.16s;
+	  animation-delay: -0.16s;
+	}
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay { // typing dots animation
+  0%, 80%, 100% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% { 
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}
+
+.message_meta {
+	clear: both;
+	display: block;
+	margin: 6px 20px 0; // same x-spacing as bubble
+	font-size: 13px;
+	opacity: 0;
+	transition: opacity 100ms ease-in;
+
+	.message.is-visible & {
+		opacity: 1;
+	} 
+
+	time {
+		margin-left: 7px;
+		color: #aaa;
+	}
+
+  .person-2 & { // right side bubble
+    text-align: right;
+	}
+}
+
+.message_signoff {
+	display: block;
+	margin: 6px 20px 0; // same x-spacing as bubble
+	font-size: 13px;
+	opacity: 0;
+	transition: opacity 100ms ease-in;
+
+	.message.is-visible & {
+		opacity: 1;
+	} 
+
+	strong {
+		display: block;
+	}
+
+	time {
+		color: #aaa;
+	}
+
+  .person-2 & { // right side bubble
+    text-align: right;
+	}
+}
+
+.exit-chat-btn {
+	z-index: 99;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  color: $white;
+  background-color: $red;
+  border: 1px solid darken($red, 5%);
+  box-shadow: 0 0 5px -1px rgba($dark, 0.5);
+}
+
+#exit-chat-modal { // must use id to style
+
+	.modal-content {
+		padding: 14px;
+		border: 4px solid #d1d8de;
+	}
+	.modal-header {
+		border-bottom: none;
+		padding-bottom: 0;
+
+		h5 {
+			font-weight: bold;
+		}
+	}
+	.modal-body {
+		p:first-child {
+			margin-top: 0 !important;
+		}
+		p:last-child {
+			margin-bottom: 0 !important;
+		}
+	}
+	.modal-footer {
+		border-top: none;
+	}
+
+	.btn-primary { // Quit button
+	  color: $white;
+	  background-color: $red;
+	  border: 1px solid darken($red, 5%);
+	}
+}
+
+
+
+
+
+
+// ------------------------------------------------
+//  Chat Log Detail
+// ------------------------------------------------
+
+.log-detail_header {
+	padding-left: 0;
+	padding-right: 0;
+	margin-top: 40px;
+	margin-bottom: 24px;
+
+	h4 {
+		display: inline-block;
+		margin-bottom: 17px;
+		color: $purple;
+		border-bottom: 1px solid $purple;
+	}
+
+	h6 {
+		margin-bottom: 0;
+		
+
+		span {
+			margin-right: 5px;
+		}
+	}
+}
+
+.logs {
+	position: relative;
+  list-style-type: none;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 1px solid lighten($lightgray, 34%);
+}
+
+.logs_header {
+	border-bottom: 1px solid lighten($lightgray, 34%);
+	margin-bottom: 3px;
+
+	.logs_header_col {
+		padding-top: 12px;
+		padding-bottom: 13px;
+
+		&:nth-child(2n+1) {
+			background-color: #ececed;
+		}
+
+		&:nth-child(2n+2) {
+			background-color: #f5f5f5;
+		}
+	}
+
+	h5 {
+		color: $dark;
+		font-size: 16px;
+		letter-spacing: 0.017em;
+		margin: 0;
+	}
+}
+
+.log {
+	border-bottom: 1px solid lighten($lightgray, 34%);
+
+	&:last-child {
+		border-bottom: none;
+	}
+}
+
+.log_message {
+	padding: 20px 30px;
+	background-color: $white;
+
+  .person-2 & { // right side bubble
+    text-align: right;
+	}
+}
+
+.log_message_bubble {
+	@extend .bubble;	
+}
+
+.log_message_meta {
+	clear: both;
+	display: block;
+	margin: 6px 20px 0; // same x-spacing as bubble
+	font-size: 13px;
+}
+
+.log_response {
+	padding: 14px 20px 10px 0; // align with top of bubble
+}
+
+.log_response_time {
+	margin-bottom: 5px;
+	color: $blue;
+	font-weight: bold;
+}
+
+.log_response_flag {
+	@extend .flag;
+	float: left;
+	margin-top: 3px;
+	margin-right: 6px;
+}
+
+.log_response_text {
+	// font-weight: bold;
+}
+
+
+
+
+
+
+
+// ------------------------------------------------
+//  Chat Data Table
+// ------------------------------------------------
+
+.data-table {
+
+  th {
+    background-color: #fff;
+    font-weight: bold;
+  }
+  td, th {
+    border: 1px solid #ddd;
+    padding: 15px;
+  }
+
+
+  // Desktop styles
+  // ========================
+  @media (min-width: 768px) {
+
+    thead, // when there is a <thead>
+    &.has-tbody-header { // when the first <tbody> row contains <th>, headers, or bold text
+
+      tr:first-child {
+        td, th {
+          background-color: #fff; // add background color to headers
+
+          &,
+          * {
+            font-weight: bold;
+
+            h1, h2, h3, h4, h5, h6, strong {
+              font-size: inherit;
+              font-weight: inherit;
+              color: inherit;
+              text-transform: none;
+            }
+          }
+        }
+      }
+    }
+
+    tbody > tr:nth-child(2n+1) td {
+      background-color: lighten($grayblue, 2%); // add background color to every other row in <tbody>, including first row
+    }
+
+    thead + tbody {  // unless there is a <tbody> following a <thead>
+      > tr:nth-child(2n+1) td {
+        background-color: darken($grayblue, 2%); // remove background color from first row of <tbody>, added above
+      }
+      > tr:nth-child(2n+2) td {
+        background-color: lighten($grayblue, 2%); // add background color to every other row, after the first row
+      }
+    }
+  }
+
+  
+  // Mobile styles
+  // ========================
+  @media (max-width: 767px) {
+    border: none;
+
+    // hide table header elements on mobile and replace with pseudo content headers
+    thead,
+    &.has-tbody-header tbody tr:first-child {
+      display: none; 
+    }
+
+    tbody,
+    tfoot {
+
+      tr {
+        clear: both;
+        display: block; // collapse all table cells on mobile
+        margin-bottom: 25px;
+
+        &:nth-child(2n+1) td {
+          background-color: lighten(#f2f1f0, 3%); // add background color to every other row on mobile
+        }
+
+        td, th {
+          display: block;
+          padding: 10px;
+          border-top-width: 0;
+          width: 100% !important; // override any table cell widths set via page editor
+
+          &:first-child {
+            border-top-width: 1px;
+            background-color: #f2f1f0; // add darker background to first cell in each block
+            font-weight: bold;
+          }
+
+          &:before {
+            content: attr(data-th); // display table headers above each cell on mobile
+            display: block;
+            width: 100%;
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+        }
+      }
+    }
+  }
+}

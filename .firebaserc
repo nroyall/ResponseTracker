@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "moderataur",
+    "production": "socialonlinestudy",
+    "staging": "moderataur"
+  }
+}
