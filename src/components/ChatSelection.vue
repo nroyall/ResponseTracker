@@ -5,17 +5,22 @@
     <div v-if="showSelection" class="container mt-5">
       <div class="row">
         <div class="col-sm-12 col-md-8 col-lg-6 mx-auto">
-          <h3 class="text-center mb-4">Chatrooms</h3>
-          <div v-for="(chatroom, idx) in chatrooms" :key="idx" class="list-card card">
+          <div>
+            <h3 class="text-center">Your Task</h3>
+            <ul class="text-list">
+              <li>Your task is to oversee the chat conversations.</li>
+              <li>The other chat users will be given a question to work on together.</li>
+              <li>Please flag innappropriate chat messages and provide written feedback.</li>
+              <li>Join a chatroom to begin. Chat users will join after you arrive.</li>
+            </ul>
+          </div>
+          <div v-for="(chatroom, idx) in chatrooms" :key="idx" class="list-card list-card--large card">
             <div class="card-body d-flex justify-content-sm-between align-items-center">
               <div>
                 <h4 class="card-title">{{ chatroom.name }}</h4>
-                <div class="card-text">
-                  <p>{{ chatroom.participants }}</p>
-                </div>
               </div>
               <button class="btn btn-primary" v-on:click="onEnterChat(chatroom.id, chatroom.name)">
-                Join Chat
+                Join
               </button>
             </div>
           </div>
@@ -72,10 +77,10 @@
         this.showSession = true
         this.chatId = chatId
         this.chatName = chatName
-        this.chatIntro = (chatName === "Icebreaker") ? true: false // show introductary tips for icebreaker chat
+        this.chatIntro = true // show introductary tips
       },
 
-      onExitChat() {  // passed up the tree from the ChatSession component
+      onExitChat() {  // passed up the tree from the session component
         this.showSelection = true
         this.showSession = false
       },

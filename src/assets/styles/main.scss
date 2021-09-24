@@ -52,6 +52,15 @@ h4 {
 	font-size: 20px;
 }
 
+ul {
+	margin-top: 35px;
+	padding-left: 1.1em;
+
+	li {
+		margin-bottom: 0.5em;
+	}
+}
+
 
 
 
@@ -229,6 +238,16 @@ h4 {
 		display: none;
 	}
 
+	&.list-card--large {
+		margin-top: 45px;
+		padding: 35px;
+
+		.card-title {
+			font-size: 24px;
+			margin: 0;
+		}
+	}
+
 	.card-status { // used for user list
 		position: absolute;
 		top: 15px;
@@ -372,6 +391,20 @@ h4 {
 			flex: 1 0 auto;
 			> input {
 				width: 100%;
+				color: #000;
+
+				&::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+				  color: #b1b1b1;
+				}
+				&::-moz-placeholder { /* Firefox 19+ */
+				  color: #b1b1b1;
+				}
+				&:-ms-input-placeholder { /* IE 10+ */
+				  color: #b1b1b1;
+				}
+				&:-moz-placeholder { /* Firefox 18- */
+				  color: #b1b1b1;
+				}
 			}
 		}
 

@@ -11,7 +11,7 @@
             <div class="card-body">
               <p class="mb-3"><strong>Moderator tips:</strong></p>
               <p class="card-text mb-1">Hover over a message to flag. Click a message to comment.</p>
-              <p class="card-text mb-4">You have a few seconds to change the flag color.</p>
+              <p class="card-text mb-4">You have a few moments to change the flag color.</p>
 
               <img class="mt-4 mb-5" src="@/assets/images/chat-demo-flag.png" alt="Hover a messag to flag it">
 
@@ -319,7 +319,7 @@
         }
 
         // show user logout button again after leaving chatroom 
-        document.querySelector('.user-logout-btn').classList.add('is-visible')
+        document.querySelector('.logout-btn').classList.add('is-visible')
             
         this.$emit('exit-chat')
         this.$destroy() // clear all JS timers with beforeDestroy
@@ -363,7 +363,7 @@
     mounted () { // use mounted hook to access and manipulate DOM elements
 
       // hide user logout button, leave chatroom is the only button
-      document.querySelector('.user-logout-btn').classList.remove('is-visible')
+      document.querySelector('.logout-btn').classList.remove('is-visible')
 
       // function to format time below each message
       function formatAMPM(date) { 
